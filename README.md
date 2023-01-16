@@ -1,0 +1,2 @@
+# qrcepta
+project for study
