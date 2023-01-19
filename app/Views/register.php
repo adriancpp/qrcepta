@@ -36,6 +36,23 @@
                                 <input type="password" class="form-control" name="password_confirm" id="password_confirm" value="">
                             </div>
                         </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Role</label>
+                                <select name="role" class="form-control">
+                                    <option value=""></option>
+                                    <?php foreach ($categories as $cat): ?>
+                                        <option <?= set_select('role', $cat, true ) ?> value="<?= $cat ?>"><?= $cat ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="pesel">Pesel</label>
+                                <input type="text" class="form-control" name="pesel" id="pesel" value="<?= set_value('pesel') ?>">
+                            </div>
+                        </div>
                     </div>
 
                     <?php if(isset($validation)): ?>
