@@ -19,19 +19,35 @@ $uri = service('uri');
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <?php if(session()->get('isLoggedIn')): ?>
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item <?= ($uri->getSegment(1) == 'dashboard' ? 'active' : null) ?>">
-                        <a class="nav-link" href="/dashboard">Dashboard</a>
-                    </li>
-                    <li class="nav-item <?= ($uri->getSegment(1) == 'profile' ? 'active' : null) ?>">
-                        <a class="nav-link" href="/profile">Profile</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav my-2 my-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                </ul>
+                <?php if(session()->get('role') == 'DOCTOR'): ?>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item <?= ($uri->getSegment(1) == 'createPrescription' ? 'active' : null) ?>">
+                            <a class="nav-link" href="/createPrescription">New prescription</a>
+                        </li>
+                        <li class="nav-item <?= ($uri->getSegment(1) == 'searchPrescription' ? 'active' : null) ?>">
+                            <a class="nav-link" href="/searchPrescription">Search prescription</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav my-2 my-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                <?php else: ?>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item <?= ($uri->getSegment(1) == 'dashboard' ? 'active' : null) ?>">
+                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item <?= ($uri->getSegment(1) == 'profile' ? 'active' : null) ?>">
+                            <a class="nav-link" href="/profile">Profile</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav my-2 my-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                <?php endif; ?>
             <?php else: ?>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item <?= ($uri->getSegment(1) == '' ? 'active' : null) ?>">

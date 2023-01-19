@@ -35,11 +35,14 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'UserController::index');
-$routes->match(['get','post'],'register', 'UserController::register');
-$routes->match(['get','post'],'profile', 'UserController::profile');
+$routes->get('/', 'UserController::index', ['filter' => 'noauth']);
+$routes->match(['get','post'],'register', 'UserController::register', ['filter' => 'noauth']);
+$routes->match(['get','post'],'profile', 'UserController::profile', ['filter' => 'auth']);
 $routes->get('logout', 'UserController::logout');
-$routes->get('dashboard', 'DashboardController::index');
+$routes->get('dashboard', 'DashboardController::index', ['filter' => 'auth']);
+$routes->get('createPrescription', 'DashboardController::createPrescription', ['filter' => 'auth']);
+$routes->get('searchPrescription', 'DashboardController::searchPrescription', ['filter' => 'auth']);
+
 
 /*
  * --------------------------------------------------------------------
