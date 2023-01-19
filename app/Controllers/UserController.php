@@ -26,8 +26,18 @@ class UserController extends BaseController
             $rules = [
                 'firstname' => 'required|min_length[3]|max_length[20]',
                 'lastname' => 'required|min_length[3]|max_length[20]',
-                'email' => 'required|'
+                'email' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[usersemail]',
+                'password' => 'required|min_length[8]|max_length[255]',
+                'password_confirm' => 'matches[password]',
             ];
+
+            if( !$this->validate($rules))     //7;00
+            {
+                $data['validation'] = $this->validator;
+            }
+            else{
+                //store the user in out db
+            }
         }
 
         echo view('templates/header', $data);
