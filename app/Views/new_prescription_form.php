@@ -4,49 +4,48 @@
             <div class="container">
                 <h3>Create Prescription</h3>
                 <hr>
-                <form class="" action="/createPrescription" method="post">
+                <?php if (session()->get('success')): ?>
+                    <div class="alert alert-success" role="alert">
+                        <?= session()->get('success') ?>
+                    </div>
+                <?php endif; ?>
+                <form class="" action="/DashboardController/createPrescription" method="post">
                     <div class="row">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label for="pesel">Pesel</label>
-                                <input type="text" class="form-control" name="pesel" id="pesel" value="<?= set_value('pesel') ?>">
+                                <input type="text" class="form-control" name="pesel" id="pesel" value="<?= (isset($pesel)? $pesel : '') ?>">
                             </div>
                         </div>
-                        <div class="col-12 col-sm-4">
-                            <form class="" action="/createPrescription" method="post">
-                                <input type="hidden" id="getDataByPesel" name="getDataByPesel" value="1">
-                                <button type="" class="btn btn-primary">Autofill user data</button>
-                            </form>
-                        </div>
-
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
                                 <label for="firstname">First Name</label>
-                                <input type="text" class="form-control" name="firstname" id="firstname" value="<?= set_value('firstname') ?>">
+                                <input type="text" class="form-control" name="firstname" id="firstname" value="<?= (isset($firstname)? $firstname : '') ?>">
                             </div>
                         </div>
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
-                                <input type="text" class="form-control" name="lastname" id="lastname" value="<?= set_value('lastname') ?>">
+                                <input type="text" class="form-control" name="lastname" id="lastname" value="<?= (isset($lastname)? $lastname : '') ?>">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="email">Email address</label>
-                                <input type="text" class="form-control" name="email" id="email" value="<?= set_value('email') ?>">
+                                <input type="text" class="form-control" name="email" id="email" value="<?= (isset($email)? $email : '') ?>">
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6">
+
+                        <div class="col-12 row-3">
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" name="password" id="password" value="">
+                                <label for="recommendation">Recommendation</label>
+                                <textarea type="text" class="form-control" name="recommendation" id="recommendation"></textarea>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 row-3">
                             <div class="form-group">
-                                <label for="password_confirm">Confirm Password</label>
-                                <input type="password" class="form-control" name="password_confirm" id="password_confirm" value="">
+                                <label for="medicines">Medicines</label>
+                                <textarea type="text" class="form-control" name="medicines" id="medicines"></textarea>
                             </div>
                         </div>
                     </div>
