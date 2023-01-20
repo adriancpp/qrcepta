@@ -12,6 +12,10 @@
                 <p>
                     <?= $prescription['medicines']; ?>
                 </p>
+                <b>Status:</b>
+                <p>
+                    <?= $prescription['status']; ?>
+                </p>
                 <b>Security code:</b>
                 <p>
                     <?= $prescription['security_code']; ?>

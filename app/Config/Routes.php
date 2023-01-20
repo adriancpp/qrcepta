@@ -46,6 +46,8 @@ $routes->get('detailsPrescription/(:any)', 'DashboardController::detailsPrescrip
 
 $routes->get('prescriptionList', 'DashboardController::prescriptionList', ['filter' => 'auth']);
 
+$routes->get('prescriptionRead', 'DashboardController::prescriptionRead', ['filter' => 'auth']);
+
 
 /*
  * --------------------------------------------------------------------

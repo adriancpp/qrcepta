@@ -44,6 +44,17 @@ $uri = service('uri');
                             <a class="nav-link" href="/logout">Logout</a>
                         </li>
                     </ul>
+                <?php elseif(session()->get('role') == 'PHARMACIST'): ?>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item <?= ($uri->getSegment(1) == 'prescriptionRead' ? 'active' : null) ?>">
+                            <a class="nav-link" href="/prescriptionRead">Prescription</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav my-2 my-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
                 <?php else: ?>
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item <?= ($uri->getSegment(1) == 'dashboard' ? 'active' : null) ?>">

@@ -9,14 +9,14 @@ class UserController extends BaseController
 {
     public function index()
     {
-        $db = db_connect();
-        $model = new CustomModel($db);
-
-        $result = $model->test();
-
-        echo '<pre>';
-        print_r($result);
-        echo '</pre>';
+//        $db = db_connect();
+//        $model = new CustomModel($db);
+//
+//        $result = $model->test();
+//
+//        echo '<pre>';
+//        print_r($result);
+//        echo '</pre>';
 
         $data = [];
 

@@ -105,12 +105,31 @@ class DashboardController extends BaseController
                 $newPrescription = (new PrescriptionModel());
                 $securityCode = uniqid();
 
+                //test
+                //$filename = $_FILES["uploadfile"]["name"];
+//                $filename = 'assets/qrcode.png';
+//
+//                if (file_exists($filename)) {
+//
+//                  //Open the required file in read mode
+//                  $handle = fopen($filename, "r");
+//
+//                  //Read all bytes from the file and print
+//                  $fileB = fread($handle, filesize($filename));
+//                  echo $fileB;
+//
+//                  //Do not forget to clone open files
+//                  fclose($handle);
+//                    echo 'gitara';
+//                }
+
                 $newData = [
                     'patient_id' => $patientId,
                     'author_id' => $userEntityDoctor['id'],
                     'recommendation' => $this->request->getVar('recommendation'),
                     'medicines' => $this->request->getVar('medicines'),
                     'security_code' => $securityCode,
+                    'status' => 'NEW',
                 ];
 
                 $newPrescription->save($newData);
@@ -199,6 +218,53 @@ class DashboardController extends BaseController
 
         echo view('templates/header', $data);
         echo view('prescription_list_form', $data);
+        echo view('templates/footer', $data);
+    }
+
+    //pharmacy
+    public function prescriptionRead()
+    {
+        $data = [];
+
+        $data['posts'] = [];
+
+        if($this->request->getMethod() == 'post' && $this->request->getVar('status'))
+        {
+            $readModel = (new PrescriptionModel())
+                ->where('security_code', $this->request->getVar('security_code'))
+                ->first();
+
+
+            $model = new PrescriptionModel();
+
+            $newData = [
+                'id' => $readModel['id'],
+                'status' => 'COMPLETED',
+            ];
+
+            $model->save($newData);
+
+            $db = db_connect();
+            $model = new CustomModel($db);
+
+            $result = $model->getPrescriptionBySecurityCode($this->request->getVar('security_code'));
+
+            $data['prescription'] = $result;
+        }
+        else if($this->request->getMethod() == 'post' && $this->request->getVar('security_code'))
+        {
+            $db = db_connect();
+            $model = new CustomModel($db);
+
+            $result = $model->getPrescriptionBySecurityCode($this->request->getVar('security_code'));
+
+            $data['prescription'] = $result;
+        }
+
+
+
+        echo view('templates/header', $data);
+        echo view('prescription_read_form', $data);
         echo view('templates/footer', $data);
     }
 }

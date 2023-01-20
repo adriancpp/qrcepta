@@ -37,4 +37,14 @@ class CustomModel
             ->orderBy('prescription.created_at', 'DESC')
             ->get()->getResult();
     }
+
+    function getPrescriptionBySecurityCode($code)
+    {
+        return $this->db->table('prescription')
+            ->select('*, prescription.created_at, prescription.id')
+            ->join('user', 'prescription.patient_id = user.id')
+            ->where('prescription.security_code ', $code)
+            ->orderBy('prescription.created_at', 'DESC')
+            ->get()->getRow();
+    }
 }
