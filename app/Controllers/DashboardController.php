@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CustomModel;
 use App\Models\PrescriptionModel;
 use App\Models\UserModel;
 
@@ -90,6 +91,7 @@ class DashboardController extends BaseController
                     $patientId = $userEntity['id'];
 
                     $successInfo.='New patient added. ';
+                    $data['newPassword'] = $newPassword;
                 }
                 else
                 {
@@ -101,21 +103,25 @@ class DashboardController extends BaseController
                     ->first();
 
                 $newPrescription = (new PrescriptionModel());
+                $securityCode = uniqid();
 
                 $newData = [
                     'patient_id' => $patientId,
                     'author_id' => $userEntityDoctor['id'],
                     'recommendation' => $this->request->getVar('recommendation'),
                     'medicines' => $this->request->getVar('medicines'),
-                    'security_code' => uniqid(),
+                    'security_code' => $securityCode,
                 ];
 
                 $newPrescription->save($newData);
 
                 $successInfo.='Prescription created. ';
+                $data['securityCode'] = $securityCode;
 
                 $session = session();
                 $session->setFlashdata('success', $successInfo);
+
+
 
                 return view('templates/header', $data).
                     view('new_prescription_form', $data).
@@ -132,10 +138,36 @@ class DashboardController extends BaseController
     {
         $data = [];
 
+        $data['posts'] = [];
+
+        if($this->request->getMethod() == 'post' && $this->request->getVar('pesel'))
+        {
+            $db = db_connect();
+            $model = new CustomModel($db);
+
+            $result = $model->all($this->request->getVar('pesel'));
+
+            $data['posts'] = $result;
+        }
 
 
         echo view('templates/header', $data);
         echo view('search_prescription_form', $data);
+        echo view('templates/footer', $data);
+    }
+
+    public function detailsPrescription($id)
+    {
+        $data = [];
+
+        $model = (new PrescriptionModel())
+            ->where('id', $id)
+            ->first();
+
+        $data['prescription'] = $model;
+
+        echo view('templates/header', $data);
+        echo view('details_prescription_form', $data);
         echo view('templates/footer', $data);
     }
 
@@ -148,5 +180,25 @@ class DashboardController extends BaseController
             $pass[] = $alphabet[$n];
         }
         return implode($pass); //turn the array into a string
+    }
+
+    //user
+    public function prescriptionList()
+    {
+        $data = [];
+
+        $data['posts'] = [];
+
+        $db = db_connect();
+        $model = new CustomModel($db);
+
+        $result = $model->allUserPrescriptions(session()->get('id'));
+
+        $data['posts'] = $result;
+
+
+        echo view('templates/header', $data);
+        echo view('prescription_list_form', $data);
+        echo view('templates/footer', $data);
     }
 }

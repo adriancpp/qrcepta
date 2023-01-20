@@ -6,7 +6,6 @@ class Home extends BaseController
 {
     public function index()
     {
-        echo 'dupa';
         //return view('welcome_message');
     }
 }

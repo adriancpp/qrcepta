@@ -33,7 +33,7 @@ class UserController extends BaseController
             }
             else //patient
             {
-                $rules['email'] = 'required|min_length[6]|max_length[50]';
+                $rules['email'] = 'required|min_length[3]|max_length[50]';
             }
 
             $errors = [

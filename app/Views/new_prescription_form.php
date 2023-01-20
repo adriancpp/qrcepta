@@ -1,3 +1,23 @@
+<script src="/assets/FileSaver.js"></script>
+<script>
+
+    function saveStaticDataToFile() {
+        <?php
+            $dataToSave = '"';
+        if (isset($newPassword))
+            $dataToSave.= '\nPassword: '.$newPassword;
+        if (isset($securityCode))
+            $dataToSave.= '\nSecure Code: '.$securityCode;
+
+        $dataToSave.='"';
+        ?>
+
+        var blob = new Blob([<?= $dataToSave ?>],
+            { type: "text/plain;charset=utf-8" });
+        saveAs(blob, "static.txt");
+    }
+
+</script>
 <div class="container">
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 mt-5 pt-3 pb-3 bg-white from-wrapper">
@@ -8,6 +28,18 @@
                     <div class="alert alert-success" role="alert">
                         <?= session()->get('success') ?>
                     </div>
+                    <?php if (isset($newPassword)): ?>
+                        <div class="alert alert-info" role="alert">
+                            New patient password: <?= $newPassword ?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (isset($securityCode)): ?>
+                        <div class="alert alert-info" role="alert">
+                            Security Code: <?= $securityCode ?>
+                        </div>
+                    <?php endif; ?>
+                    <button type="button" onclick="saveStaticDataToFile();" style="margin-bottom: 20px;">Print</button>
+
                 <?php endif; ?>
                 <form class="" action="/DashboardController/createPrescription" method="post">
                     <div class="row">

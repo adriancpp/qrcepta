@@ -42,6 +42,9 @@ $routes->get('logout', 'UserController::logout');
 $routes->get('dashboard', 'DashboardController::index', ['filter' => 'auth']);
 $routes->get('createPrescription', 'DashboardController::createPrescription', ['filter' => 'auth']);
 $routes->get('searchPrescription', 'DashboardController::searchPrescription', ['filter' => 'auth']);
+$routes->get('detailsPrescription/(:any)', 'DashboardController::detailsPrescription/$1', ['filter' => 'auth']);
+
+$routes->get('prescriptionList', 'DashboardController::prescriptionList', ['filter' => 'auth']);
 
 
 /*
