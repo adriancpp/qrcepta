@@ -33,9 +33,9 @@ class Database extends Config
     public $default = [
         'DSN'      => '',
         'hostname' => 'localhost',
-        'username' => 'qrceptap_root',
-        'password' => 'DGdb889',
-        'database' => 'qrceptap_byt',
+        'username' => '',
+        'password' => '',
+        'database' => '',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
