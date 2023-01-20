@@ -2,12 +2,22 @@
 
 namespace App\Controllers;
 
+use App\Models\CustomModel;
 use App\Models\UserModel;
 
 class UserController extends BaseController
 {
     public function index()
     {
+        $db = db_connect();
+        $model = new CustomModel($db);
+
+        $result = $model->test();
+
+        echo '<pre>';
+        print_r($result);
+        echo '</pre>';
+
         $data = [];
 
         helper(['form']);

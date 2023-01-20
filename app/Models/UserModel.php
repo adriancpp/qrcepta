@@ -39,7 +39,8 @@ class UserModel extends Model
 
     protected function setDefaultRole(array $data)
     {
-        $data['data']['role'] = 'PATIENT';
+        if($data['data']['role']==null)
+            $data['data']['role'] = 'PATIENT';
 
         return $data;
     }

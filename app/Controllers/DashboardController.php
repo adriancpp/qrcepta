@@ -79,7 +79,7 @@ class DashboardController extends BaseController
                         'lastname' => $this->request->getVar('lastname'),
                         'email' => $this->request->getVar('email'),
                         'password' => $newPassword,
-                        'role' => 'PATIENT',
+                        'role' => $this->request->getVar('role'),
                         'pesel' => $this->request->getVar('pesel'),
                     ];
                     $newUser->save($newUserData);

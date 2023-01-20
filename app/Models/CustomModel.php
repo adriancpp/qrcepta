@@ -12,6 +12,12 @@ class CustomModel
         $this->db =& $db;
     }
 
+    function test()
+    {
+        return $this->db->table('user')
+            ->get()->getResult();
+    }
+
     function all($pesel)
     {
         return $this->db->table('prescription')
